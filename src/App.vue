@@ -1,44 +1,21 @@
 <template>
-  <div class="todos h-screen w-full flex flex-col items-center my-20">
-    <div class="text-3xl my-8">Todo</div>
-    <div class="flex gap-2 h-8 items-center justify-center">
-      <input
-        class="h-full px-2 border-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-        type="text"
-        placeholder="new todo"
-        v-model="newTodo"
-        @keydown="handleInput"
-      />
-      <button
-        @click="handleAdd"
-        class="h-full bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded-md"
-      >
-        Add
-      </button>
-    </div>
+  <div class="flex flex-col items-center justify-center w-full">
+    <div class="w-full flex flex-col px-8 py-4">
+      <div class="w-full text-3xl py-4">Todo</div>
 
-    <ul class="flex flex-col justify-center w-full">
-      <li
-        v-for="item in todos"
-        :key="item.id"
-      >
-        {{ item.content }}
-        <!-- <input type="checkbox" /> -->
-        <input
-          type="checkbox"
-          v-model="item.done"
-        />
-      </li>
-    </ul>
+      <NewTodoBox :todos="todos" />
+
+      <TodoList :todos="todos" />
+    </div>
   </div>
 </template>
 
 <script setup>
-// @ts-nocheck
-import { ref } from "vue";
-const newTodo = ref("");
+import { reactive } from "vue";
+import TodoList from "./components/TodoList.vue";
+import NewTodoBox from "./components/NewTodoBox.vue";
 
-const todos = ref([
+const todos = reactive([
   {
     id: 1,
     content: "todo1",
@@ -55,22 +32,7 @@ const todos = ref([
     done: false,
   },
 ]);
-
-const handleAdd = () => {
-  console.log("handleAdd");
-  todos.value.push({
-    id: todos.value.length + 1,
-    content: newTodo.value,
-    done: false,
-  });
-  newTodo.value = "";
-};
-
-const handleInput = (event) => {
-  if (event.key === "Enter") {
-    handleAdd();
-  }
-};
+console.log("🚀 ~ file: App.vue:35 ~ todos:", todos);
 </script>
 
 <style scoped></style>
