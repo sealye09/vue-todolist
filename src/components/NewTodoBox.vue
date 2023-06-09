@@ -9,7 +9,7 @@
     />
     <button
       @click="handleAdd"
-      class="h-full bg-blue-500 text-white font-bold px-4 rounded-md"
+      class="h-full bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded-md"
     >
       +
     </button>
@@ -34,6 +34,7 @@ const handleAdd = () => {
     done: false,
   });
   newTodo.value = "";
+  localStorage.setItem("todos", JSON.stringify(props.todos));
 };
 
 const handleInput = (event) => {
